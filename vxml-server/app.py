@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, make_response, send_from_directory
 app = Flask(__name__)
 
@@ -16,6 +17,21 @@ def lab1():
     response = make_response(vxml)
     response.headers["Content-Type"] = "application/xml"
     return response
+
+@app.route('/Enquire_Flight')
+def lab1_enquire_flight():
+    vxml = render_template('Enquire_Flight.xml')
+    response = make_response(vxml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+@app.route('/Booking_Flight')
+def lab1_book_flight():
+    vxml = render_template('Booking_Flight.xml')
+    response = make_response(vxml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
 
 @app.route('/lab2')
 def lab2():
