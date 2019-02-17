@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+
       xmlns:voxeo="http://community.voxeo.com/xmlns/vxml">
+
+  <menu id="mainMenu">
+
+    <prompt bargein="false">
+
+      <break time="1s"/>
+
+      Welcome to Flight booking and Inquiry service. choose one of the options below<enumerate/>
+
+    </prompt>
+
+    <choice next="Booking_Flight">
+      <break time="1s"/>
+
+      Book Flight
+
+    </choice>
+
+    <choice next="Enquire_Flight">
+     <break time="1s"/>
+
+       Flight Enquiry
+
+    </choice>
+
+  </menu>
+
   <nomatch>
-    I didn't understand.
+
+    <property name="timeout" value="2s"/>
+
+    Sorry I did not understand. Could you please repeat again.
+
     <reprompt/>
+
   </nomatch>
-  
+
   <noinput>
-    You didn't say anything.
+
+    <property name="timeout" value="3s"/>
+
+    You did not say anything.<enumerate/>
+
     <reprompt/>
+
   </noinput>
 
-  <!-- Data model -->
-  <var name="from" />
-  <var name="to" />
-
-  <!-- State machine -->
-  <form id="welcome">
-    <block>
-      <prompt>
-        <break time="2000" />
-        Welcome to the flight booking service.
-      </prompt>
-      <goto next="#askFrom" />
-    </block>
-  </form>
-
-  <form id="askFrom">
-    <field name="fromField">
-      <prompt>
-        What city are you leaving from?
-      </prompt>
-      <option>london</option>
-      <option>paris</option>
-      <option>new york</option>
-    </field>
-    <filled>
-      <assign name="from" expr="fromField" />
-      <goto next="#askTo" />
-    </filled>
-  </form>
-
-  <form id="askTo">
-    <field name="toField">
-      <prompt>
-        Where are you going?
-      </prompt>
-      <option>london</option>
-      <option>paris</option>
-      <option>new york</option>
-    </field>
-    <filled>
-      <goto next="#askDate" />
-    </filled>
-  </form>
 </vxml>
+
