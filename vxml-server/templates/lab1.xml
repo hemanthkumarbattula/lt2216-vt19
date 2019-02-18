@@ -66,11 +66,6 @@
       <goto next="#mainMenu"/>
   </nomatch>
 
-   <noinput>
-         I'm sorry. I didn't hear you.
-         <reprompt/>
-   </noinput>
-
     <nomatch count="2">
       I'm sorry. I still didn't get that.
       <reprompt />
@@ -85,7 +80,10 @@
       <exit />
     </nomatch>
 
- 
+    <noinput>
+         I'm sorry. I didn't hear you.
+         <reprompt/>
+   </noinput> 
 
 
 </vxml>
