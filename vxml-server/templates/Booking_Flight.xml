@@ -8,7 +8,7 @@
 
   <var name="date" />
 
-  <var name="retrn" />
+  <var name="return" />
 
   <form id="welcome">
 
