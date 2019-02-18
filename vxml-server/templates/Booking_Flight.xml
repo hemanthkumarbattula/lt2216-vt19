@@ -406,7 +406,7 @@
    </link>
   
    <catch event="event_startover">
-      <goto next="#welcome"/>
+      <goto next="lab1"/>
    </catch>
    <noinput>
          I'm sorry. I didn't hear you.
