@@ -263,7 +263,7 @@
 
        </prompt>
 
-       <prompt count="2">
+       <prompt count="2" timeout='20s'>
 
 	To choose what day to return, you can say any day between monday to sunday.
 
@@ -282,6 +282,21 @@
        <option>Saturday</option>
 
        <option>Sunday</option>
+
+    <noinput>
+         I'm sorry. I didn't hear you.
+        <reprompt/>
+    </noinput>
+
+    <nomatch count="3">
+      I'm sorry. I'm having trouble understanding. I have to exit the next time.
+      <reprompt />
+    </nomatch>
+
+    <nomatch count="4">
+      <exit />
+    </nomatch>
+
 
      </field>
 
@@ -357,6 +372,9 @@
          No Problem. Your flight has been booked. Have a great journey. Bye.
 
        </prompt>
+       
+       <else/>
+           <throw event="nomatch"/>
 
        </if>
 
@@ -406,8 +424,19 @@
    </link>
   
    <catch event="event_startover">
+
       <goto next="lab1"/>
+
    </catch>
+  
+   <catch event="nomatch">
+  I'm sorry. I didn't get that. 
+   </catch>
+
+   <catch event="no_input">
+    I'm sorry. Please say something.
+   </catch>
+
    <noinput>
          I'm sorry. I didn't hear you.
          <reprompt/>
