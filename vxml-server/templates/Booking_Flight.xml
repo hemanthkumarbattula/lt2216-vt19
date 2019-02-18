@@ -1,48 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
-<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
-
-      xmlns:voxeo="http://community.voxeo.com/xmlns/vxml">
-
-  <nomatch>
-
-    I didn't understand.
-
-    <reprompt/>
-
-  </nomatch>
-
-
-
-  <noinput>
-
-    You didn't say anything.
-
-    <reprompt/>
-
-  </noinput>
-
-
-
-  <!-- Data model -->
+<vxml version="2.1">
 
   <var name="from" />
 
   <var name="to" />
 
+  <var name="date" />
 
-
-  <!-- State machine -->
+  <var name="retrn" />
 
   <form id="welcome">
 
     <block>
 
-      <prompt>
+      <prompt bargein="false">
 
-        <break time="2000" />
+        <break time="2" />
 
-        Welcome to the flight booking service.
+        Welcome to the Tele flight booking service.
+        Follow the inatructions carefully to book the flight.
 
       </prompt>
 
@@ -57,8 +34,10 @@
   <form id="askFrom">
 
     <field name="fromField">
+     
 
       <prompt>
+       <break time="1" />
 
         What city are you leaving from?
 
@@ -69,6 +48,12 @@
       <option>paris</option>
 
       <option>new york</option>
+
+      <prompt count="2">
+
+	 you can leave from london, paris or new york.
+
+      </prompt>
 
     </field>
 
@@ -94,6 +79,12 @@
 
       </prompt>
 
+      <prompt count="2">
+
+	 you can fly to london, paris or new york.
+
+      </prompt>
+
       <option>london</option>
 
       <option>paris</option>
@@ -104,10 +95,339 @@
 
     <filled>
 
-      <goto next="#askDate" />
+      <assign name="to" expr="toField" />
+
+      <if cond="to==from">
+
+        <prompt bargein="false">
+	sorry your destination can not be the same as your departing city. please start over again.
+        </prompt>
+
+        <goto next="#askFrom"/>
+
+      <else/>
+
+      <goto next="#askTravellers" />
+
+      </if>
+
+    </filled>
+
+
+  </form>
+
+  
+
+  <form id="askTravellers">
+
+  <field name="travellers" type="number">
+      <prompt>How many are travelling to <value expr="to"/>?</prompt>
+
+     <filled>
+         <if cond="travellers > 12">
+             <prompt>
+                Sorry, we only handle groups of up to 12 people.
+                Please start over again if you want to book for less than 12.
+             </prompt>
+             <clear namelist="travellers"/>
+             <goto next="#askFrom"/>
+         <else/>
+         <goto next="#askDate" />
+
+         </if>
+     </filled>
+
+   </field>
+
+
+ </form>
+
+  
+
+  <form id="askDate">
+
+    <field name="dateField">
+
+      <prompt  bargein="false">
+
+	What day of the week do you want to leave?
+
+      </prompt>
+
+
+      <option>Monday</option>
+
+      <option>Tuesday</option>
+
+      <option>Wednesday</option>
+
+      <option>Thursday</option>
+
+      <option>Friday</option>
+
+      <option>Saturday</option>
+
+      <option>Sunday</option>
+
+    </field>
+
+    <filled>
+
+      <assign name="date" expr="dateField"/>
+
+      <goto next="#askOneway"/>
 
     </filled>
 
   </form>
 
+
+
+  <form id="askOneway">
+
+    <field name="onewayField">
+
+      <prompt>
+
+	Is it a one way trip?
+
+      </prompt>
+
+      <option> yes </option>
+
+      <option> no </option>
+
+    </field>
+
+    <filled>
+
+      <if cond="onewayField == 'yes'">
+
+	<goto next="#onewayYes"/>
+
+	<exit/>
+
+	<elseif cond="onewayField == 'no'"/>
+
+	  <goto next="#onewayNo"/>
+
+	</if>
+
+     </filled>
+
+   </form>
+
+  
+
+   <form id="onewayYes">
+
+     <field name="onewayYesField">
+
+       <prompt bargein="false">
+
+	 Do you want to go from <value expr="from"/> to <value expr="to"/> on <value expr="date"/>
+
+       </prompt>
+
+       <option> yes </option>
+
+       <option> no </option>
+
+     </field>
+
+     <filled>
+
+       <if cond="onewayYesField == 'yes'">
+
+	 <goto next="#booked"/>
+
+	<elseif cond="onewayYesField == 'no'"/>
+
+	  <goto next="#askFrom"/>
+
+	</if>
+
+      </filled> 
+
+   </form>
+
+
+
+   <form id="onewayNo">
+
+     <field name="onewayNoField">
+
+       <prompt>
+
+	 what date do you want to return?
+
+       </prompt>
+
+       <prompt count="2">
+
+	To choose what day to return, you can say any day between monday to sunday.
+
+       </prompt>
+
+       <option>Monday</option>
+
+       <option>Tuesday</option>
+
+       <option>Wednesday</option>
+
+       <option>Thursday</option>
+
+       <option>Friday</option>
+
+       <option>Saturday</option>
+
+       <option>Sunday</option>
+
+     </field>
+
+     <filled>
+
+       <assign name="retrn" expr="onewayNoField"/>
+
+       <goto next="#askReturn"/>
+
+     </filled>
+
+   </form>
+
+
+   <form id="askReturn">
+
+     <field name="returnField">
+     
+       <prompt bargein="false">
+
+	 do you want to go from <value expr="from"/> to <value expr="to"/> on <value expr="date"/> returning on <value expr="retrn"/>
+
+       </prompt>
+
+       <option> yes </option>
+
+       <option> no </option>
+
+     </field>
+
+     <filled>
+
+       <if cond="returnField == 'yes'">
+
+	 <goto next="#booked"/>
+
+	<elseif cond="returnField =='no'"/>
+
+	<goto next="#askFrom"/>
+
+       </if>
+
+     </filled>
+
+   </form>
+
+   <form id="booked">
+
+    <field name="bookField">
+
+       <prompt bargein="false">
+
+         Your flight has been booked. Do you need a confirmation message?
+
+       </prompt>
+
+       <option> yes </option>
+
+       <option> no </option>
+
+     </field>
+
+     <filled>
+
+       <if cond="bookField == 'yes'">
+
+         <goto next="#sendMessage"/>
+
+        <elseif cond="returnField =='no'"/>
+
+        <prompt bargein="false">
+
+         No Problem. Your flight has been booked. Have a great journey. Bye.
+
+       </prompt>
+
+       </if>
+
+     </filled>
+
+   </form>
+
+   <form id="sendMessage">
+   <field name="phone_num" type="digits">
+     <prompt> please tell your 10 digit phone number. </prompt>
+ 
+        <filled>
+          <if cond="phone_num.length != 10">
+               <prompt> Sorry, I didn't hear exactly 10 digits. </prompt>
+               <goto next="#sendMessage"/>
+          <else/>
+               <prompt bargein="false">
+                  A confirmation message will be sent shortly.
+                  Thank you for using our service. Your flight has been booked. Have a great journey. Bye.
+               </prompt>
+          </if>
+     </filled>
+    </field>
+   </form>
+
+
+    <link event="event_startover">
+
+   <grammar mode="voice"
+         root="root_rule"
+         xml:lang="en-US">
+      
+       <rule id="root_rule" scope="public">
+       
+        <one-of>
+            <item>
+               start
+               over
+            </item>
+         
+	</one-of>
+      
+       </rule>
+
+   </grammar>
+
+   </link>
+  
+   <catch event="event_startover">
+      <goto next="#welcome"/>
+   </catch>
+   <noinput>
+         I'm sorry. I didn't hear you.
+         <reprompt/>
+      </noinput>
+    <nomatch count="1">
+      I'm sorry. I didn't get that.
+      <reprompt />
+    </nomatch>
+
+    <nomatch count="2">
+      I'm sorry. I still didn't get that.
+      <reprompt />
+    </nomatch>
+
+    <nomatch count="3">
+      I'm sorry. I'm having trouble understanding. I have to exit the next time.
+      <reprompt />
+    </nomatch>
+
+    <nomatch count="4">
+      <exit />
+    </nomatch>
 </vxml>

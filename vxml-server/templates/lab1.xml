@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+<vxml version="2.1" >
 
-      xmlns:voxeo="http://community.voxeo.com/xmlns/vxml">
+   <link event="event_startover">
+   
+   <grammar mode="voice"
+         root="root_rule"
+         xml:lang="en-US">
+   
+   <rule id="root_rule" scope="public">
+
+         <one-of>
+
+            <item>
+               start
+               over
+            </item>
+
+         </one-of>
+
+      </rule>
+
+   </grammar>
+
+   </link>
+
+   <catch event="event_startover">
+
+      <goto next="#mainMenu"/>
+
+   </catch>
 
   <menu id="mainMenu">
 
@@ -10,11 +37,12 @@
 
       <break time="1s"/>
 
-      Welcome to Flight booking and Inquiry service. choose one of the options below<enumerate/>
+      Welcome to Flight booking and Inquiry service. choose one of the options below <enumerate/>
 
     </prompt>
 
     <choice next="Booking_Flight">
+
       <break time="1s"/>
 
       Book Flight
@@ -22,6 +50,7 @@
     </choice>
 
     <choice next="Enquire_Flight">
+
      <break time="1s"/>
 
        Flight Enquiry
@@ -30,25 +59,34 @@
 
   </menu>
 
-  <nomatch>
+  <nomatch count="1">
 
-    <property name="timeout" value="2s"/>
+        Sorry, the option dóes not match. Please hear the menu again.
 
-    Sorry I did not understand. Could you please repeat again.
-
-    <reprompt/>
-
+      <goto next="#mainMenu"/>
   </nomatch>
 
-  <noinput>
+   <noinput>
+         I'm sorry. I didn't hear you.
+         <reprompt/>
+   </noinput>
 
-    <property name="timeout" value="3s"/>
+    <nomatch count="2">
+      I'm sorry. I still didn't get that.
+      <reprompt />
+    </nomatch>
 
-    You did not say anything.<enumerate/>
+    <nomatch count="3">
+      I'm sorry. I'm having trouble understanding. I have to exit the next time.
+      <reprompt />
+    </nomatch>
 
-    <reprompt/>
+    <nomatch count="4">
+      <exit />
+    </nomatch>
 
-  </noinput>
+ 
+
 
 </vxml>
 
