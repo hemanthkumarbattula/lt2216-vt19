@@ -8,7 +8,7 @@
 
   <var name="date" />
 
-  <var name="return" />
+  <var name="return_date" />
 
   <form id="welcome">
 
@@ -287,7 +287,7 @@
 
      <filled>
 
-       <assign name="retrn" expr="onewayNoField"/>
+       <assign name="return_date" expr="onewayNoField"/>
 
        <goto next="#askReturn"/>
 
@@ -302,7 +302,7 @@
      
        <prompt bargein="false">
 
-	 do you want to go from <value expr="from"/> to <value expr="to"/> on <value expr="date"/> returning on <value expr="retrn"/>
+	 do you want to go from <value expr="from"/> to <value expr="to"/> on <value expr="date"/> returning on <value expr="return_date"/>
 
        </prompt>
 
