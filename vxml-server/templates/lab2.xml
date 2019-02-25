@@ -11,7 +11,7 @@
   <form id="test">
     <field name="foo">
       <prompt>Say something!</prompt>
-      <grammar src="grammars/lab2.xml"/>
+      <grammar src="grammars/lab2_controls.xml"/>
     </field>
     <filled>
 	<prompt>
@@ -20,7 +20,38 @@
 	  and with a confidence of <value expr="foo$.confidence"/>
 	  <break time="2s"/>
 	</prompt>
-	<goto next="#test"/>
+	<goto next="#F1"/>
     </filled>
   </form>
+
+  <form id="F1">
+   <field name="author">
+
+   <prompt>
+       Tell me a quote, to look up for author?
+    </prompt>
+
+  <grammar type="application/x-nuance-gsl" mode="voice">
+  <![CDATA[
+   [
+    [(to do is to be)] {<author "Socrates">}
+    [(to be is to do)]  {<author "Sartre">}
+    [(do be do be do)]  {<author "Sinatra">}
+   ]
+  ]]>
+   </grammar>
+
+   <filled >
+    <prompt>
+     The author is <value expr="author"/>
+   <break time="2s"/>
+
+    </prompt>
+  <goto next="#F1"/>
+   </filled>
+
+   </field>
+
+   </form>
+
 </vxml>
