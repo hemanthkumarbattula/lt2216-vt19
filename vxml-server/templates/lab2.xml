@@ -1,30 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <vxml version="2.0">
-  <nomatch>
-    I didn't understand.
-  </nomatch>
+
   
   <noinput>
     You didn't say anything.
   </noinput>
 
+
   <form id="test">
     <field name="foo">
       <prompt>Say something!</prompt>
-      <grammar src="grammars/lab2_controls.xml"/>
+      <grammar src="grammars/lab2_control.xml"/>
     </field>
-    <filled>
-	<prompt>
-	  You said: <value expr="foo$.utterance"/>,
-	  with the interpretation <value expr="foo$.interpretation"/>
-	  and with a confidence of <value expr="foo$.confidence"/>
-	  <break time="2s"/>
-	</prompt>
-	<goto next="#F1"/>
-    </filled>
-  </form>
+    <field name="not_proper"  cond="foo$.confidence &lt; 0.1">
 
-  <form id="F1">
+        <throw event="nomatch"/>
+    </field>
+    <field name="confirm"  cond="(foo$.confidence &gt; 0.1)&amp;&amp;(foo$.confidence &lt; 0.7)" >
+            <prompt> Did you say <value expr="foo$.utterance"/> </prompt>
+              <option>yes</option>
+
+              <option>no</option>
+            <filled>
+                 <if cond="confirm == 'yes'" >
+              <prompt>
+                The action was to <value expr="foo$.interpretation.command.action"/>
+                 <break time="1s"/>
+                </prompt>
+              <prompt>
+                To be applied on  <value expr="foo$.interpretation.command.object"/>
+                <break time="1s"/>
+               </prompt>
+                <prompt>
+                 You said: <value expr="foo$.utterance"/>,
+               with the interpretation <value expr="foo$.interpretation.command.action"/>
+               <value expr="foo$.interpretation.command.object"/>
+               and with a confidence of <value expr="foo$.confidence"/>
+             <break time="2s"/>
+             </prompt>
+              <goto next="#F1"/>
+            <else/>
+            <clear namelist="confirm foo"/>
+           <goto next ="#test" />
+          </if>
+          </filled>
+        </field>
+          <field name="clarity"  cond="(foo$.confidence &gt; 0.7)" >
+             <prompt>
+                The action was to <value expr="foo$.interpretation.command.action"/>
+                 <break time="1s"/>
+                </prompt>
+              <prompt>
+                To be applied on  <value expr="foo$.interpretation.command.object"/>
+                <break time="1s"/>
+               </prompt>
+                <prompt>
+                 You said: <value expr="foo$.utterance"/>,
+               with the interpretation <value expr="foo$.interpretation.command.action"/>
+               <value expr="foo$.interpretation.command.object"/>
+               and with a confidence of <value expr="foo$.confidence"/>
+             <break time="2s"/>
+             </prompt>
+
+     <goto next="#F1"/>
+    </field>
+ </form>
+
+
+<catch event="nomatch" >
+       <goto next="#test"/>
+   </catch>
+
+ <form id="F1">
    <field name="author">
 
    <prompt>
@@ -47,7 +94,7 @@
    <break time="2s"/>
 
     </prompt>
-  <goto next="#F1"/>
+  <goto next="#test"/>
    </filled>
 
    </field>

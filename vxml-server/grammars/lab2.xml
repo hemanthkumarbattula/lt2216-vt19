@@ -1,11 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<grammar version="1.0" tag-format="semantics/1.0" root="yn">
-  <rule id="yn">
+
+<grammar version="1.0" tag-format="semantics/1.0" root="basicCommand">
+
+<rule id="basicCommand" scope="public">
+  <example>please close the window</example>
+  <example>Could you turn on the light</example>
+  <ruleref uri="#startpolite"/>
+  <ruleref uri="#command"/>
+  <tag>out.command = new Object(); out.command.object=rules.command.object;
+           out.command.action=rules.command.action;</tag>
+</rule>
+<rule id="command">
+ <one-of>
+    
+ <item> <ruleref uri="#action1"/> <ruleref uri="#appliance"/><tag>out.action=rules.action1; out.object=rules.appliance;</tag></item>
+  <item> <ruleref uri="#action2"/> <ruleref uri="#obj"/><tag>out.action=rules.action2; out.object=rules.obj;</tag></item>
+  </one-of>
+</rule>
+ 
+
+<rule id="startpolite">
+
     <one-of>
-      <item>yes<tag>out="yes";</tag></item>
-      <item>yeah<tag>out="yes";</tag></item>
-      <item>no<tag>out="no";</tag></item>
-      <item>nope<tag>out="no";</tag></item>
-    </one-of>
+
+      <item> please </item>
+
+      <item> would you </item>
+
+      <item> could you </item>
+
+    </one-of> 
+
   </rule>
+
+
+  <rule id="appliance">
+
+    <count number="optional">
+    <one-of>
+      <item>the</item>
+      <item>a</item>
+    </one-of>
+  </count>
+
+    <one-of>
+
+      <item><one-of><item> light</item></one-of> <tag> out = 'light'; </tag> </item>
+       <item><one-of><item> heat</item></one-of> <tag> out = 'heat'; </tag> </item>
+      <item><one-of><item> A C</item></one-of> <tag> out = 'air conditioning'; </tag> </item>
+      <item><one-of><item> Air Conditioning</item></one-of> <tag> out = 'Air conditioning'; </tag> </item>
+
+    </one-of>
+
+  </rule>
+
+<rule id="obj">
+
+    <count number="optional">
+    <one-of>
+      <item>the</item>
+      <item>a</item>
+    </one-of>
+  </count>
+
+    <one-of>
+        <item><one-of><item> window</item></one-of> <tag> out = 'window'; </tag> </item>
+       <item><one-of><item> door</item></one-of> <tag> out = 'door'; </tag> </item>
+
+    </one-of>
+
+  </rule>
+
+
+  <rule id="action1">
+
+    <one-of>
+        <item><one-of><item> turn off</item></one-of> <tag> out = 'turn off'; </tag> </item>
+        <item><one-of><item> turn on</item></one-of> <tag> out = 'turn on'; </tag> </item>
+
+    </one-of>
+
+  </rule>
+
+<rule id="action2">
+
+    <one-of>
+       <item><one-of><item> close</item></one-of> <tag> out = 'close'; </tag> </item>
+        <item><one-of><item> open</item></one-of> <tag> out = 'open'; </tag> </item>
+
+    </one-of>
+
+  </rule>
+
+
+
 </grammar>
+
+
