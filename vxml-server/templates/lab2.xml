@@ -23,15 +23,15 @@
               <option>no</option>
             <filled>
                  <if cond="confirm == 'yes'" >
-              <prompt>
+              <prompt bargein='false'>
                 The action was to <value expr="foo$.interpretation.command.action"/>
                  <break time="1s"/>
                 </prompt>
-              <prompt>
+              <prompt  bargein='false'>
                 To be applied on  <value expr="foo$.interpretation.command.object"/>
                 <break time="1s"/>
                </prompt>
-                <prompt>
+                <prompt  bargein='false'>
                  You said: <value expr="foo$.utterance"/>,
                with the interpretation <value expr="foo$.interpretation.command.action"/>
                <value expr="foo$.interpretation.command.object"/>
@@ -46,15 +46,15 @@
           </filled>
         </field>
           <field name="clarity"  cond="(foo$.confidence &gt; 0.7)" >
-             <prompt>
+             <prompt  bargein='false'>
                 The action was to <value expr="foo$.interpretation.command.action"/>
                  <break time="1s"/>
                 </prompt>
-              <prompt>
+              <prompt  bargein='false'>
                 To be applied on  <value expr="foo$.interpretation.command.object"/>
                 <break time="1s"/>
                </prompt>
-                <prompt>
+                <prompt  bargein='false'>
                  You said: <value expr="foo$.utterance"/>,
                with the interpretation <value expr="foo$.interpretation.command.action"/>
                <value expr="foo$.interpretation.command.object"/>
