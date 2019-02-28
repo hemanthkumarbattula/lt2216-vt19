@@ -10,7 +10,7 @@
   <form id="test">
     <field name="foo">
       <prompt>Say something!</prompt>
-      <grammar src="grammars/lab2_control.xml"/>
+      <grammar src="grammars/lab2.xml"/>
     </field>
     <field name="not_proper"  cond="foo$.confidence &lt; 0.1">
 
