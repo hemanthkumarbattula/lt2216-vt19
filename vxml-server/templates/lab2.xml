@@ -73,7 +73,7 @@
 
  <form id="F1">
    <field name="author">
-
+   <property name="confidencelevel" value="0.5"/>
    <prompt>
        Tell me a quote, to look up for author?
     </prompt>
