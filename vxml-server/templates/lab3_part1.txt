@@ -1,0 +1,13 @@
+<speak>
+<s>
+<prosody rate='100%' volume='loud'> 
+The  <emphasis level="strong">biggest loser</emphasis> 
+among the top 10 <phoneme alphabet="ipa" ph="kr?pto k?r?nsiz"> cryptocurrencies </phoneme>
+is <sub alias=" bitcoin cash">BCH</sub>  <break time="0.001s"/>
+,down <say-as interpret-as="ordinal">10 point 58 </say-as>percent in the last 24 hours .</prosody>
+</s>
+<s> 
+<prosody rate='100%' volume='loud'>It's also down 24.11 percent from the recent high of 
+<break time="0.01s"/> USD$1,641.40.</prosody>
+</s>
+</speak>

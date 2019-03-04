@@ -1,0 +1,20 @@
+<speak>
+I have your <prosody rate="100%">calendar
+open</prosody>.<break strength="strong"/>
+<amazon:breath duration="long" volume="x-loud"/> <prosody rate="120%" volume="loud"> Could you please mark my calendar? </prosody> <break strength="medium"/>
+ <prosody pitch="high"> For what</prosody> <prosody volume="-6dB">date</prosody>?<break strength="strong"/>
+<say-as interpret-as="date" format="dmy">04-03-2019</say-as>
+  <break strength="medium"/> What <emphasis level="strong">time</emphasis><amazon:effect phonation="soft">would you like to start?</amazon:effect> 
+<amazon:breath duration="long" volume="x-loud"/><say-as interpret-as="time" >8:30</say-as>
+  <break strength="medium"/>
+ How much <prosody rate="-30%" volume="loud">time</prosody> do you
+<amazon:effect phonation="soft">want to block out?</amazon:effect> 
+<break strength="strong"/>
+<prosody rate="fast"><say-as interpret-as="time" >60 minutes</say-as></prosody>
+<break strength="strong"/>
+<amazon:auto-breaths volume="x-loud" frequency="x-low">what shall we call this?</amazon:auto-breaths>
+ <break strength="medium"/>
+<prosody amazon:max-duration="3s">client <mark name="skype_call"/>meeting </prosody>  <break strength="strong"/>
+<prosody volume="-6dB">Ok. your meeting is marked in the calendar.</prosody> 
+
+</speak>
