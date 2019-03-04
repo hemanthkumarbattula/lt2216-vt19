@@ -1,0 +1,16 @@
+<speak>
+<prosody volume="-6dB" rate="x-slow"><s>The <emphasis level="strong">sun</emphasis> is<break time="0.1s"/> nearly<prosody rate="-10%"> gone</prosody></s><s>
+The  <emphasis level="moderate">lights</emphasis> are <break time="0.1s"/><prosody rate="-10%"> turning on</prosody></s>
+<s>A <emphasis level="moderate">silver shine</emphasis><emphasis level="reduced"> that stretches</emphasis><break strength="strong"/><prosody rate="-30%">  to the sea</prosody></s>
+ We've stumbled on a view<break time="1s"/> 
+That's tailor-made for two
+</prosody><break time="1s"/>
+<prosody volume="loud" rate="x-slow">What a shame</prosody><prosody volume="-6dB" rate="x-slow"> those two are you and me</prosody><break time="1s"/> 
+Some <prosody volume="-6dB" rate="x-slow">other girl</prosody><break time="0.02s"/><prosody volume="-6dB" rate="x-slow">and guy</prosody><break time="1s"/> 
+Would love this<break time="0.00001s"/><prosody volume="-6dB" rate="x-slow">  swirling sky</prosody><break time="1s"/> 
+<prosody volume="-6dB" rate="x-slow">But there's only </prosody ><break time="0.001s"/><emphasis level="strong">you and I</emphasis><break time="1s"/>
+<prosody volume="x-soft" rate="x-slow">And we've got<break time="0.20s"/> no shy</prosody><break time="1s"/>
+<emphasis level="strong">This </emphasis><break time="0.1s"/><prosody volume="x-soft" rate="x-slow">could never be</prosody><break time="01s"/>
+<prosody volume="medium" rate="x-slow"><amazon:effect phonation="soft">You're not the</amazon:effect></prosody><break time="0.5s"/> <emphasis level="strong">type for me</emphasis><break time="01s"/>
+<amazon:effect phonation="soft">Really?</amazon:effect>
+</speak>
