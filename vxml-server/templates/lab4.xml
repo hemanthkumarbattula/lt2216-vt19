@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<vxml version="2.0">
+	<menu id="mainMenu">
+		<prompt bargein="false">
+			<break time="1s"/>
+
+
+
+      Welcome to Flight booking and Inquiry service. choose one of the options below
+                        
+			<enumerate/>
+		</prompt>
+		<choice next="#flight_booking">
+			<break time="1s"/>
+
+                      Book Flight
+
+
+                
+		</choice>
+		<choice next="#Enquire_Flight">
+			<break time="1s"/>
+
+
+                        Flight Enquiry
+
+
+                
+		</choice>
+	</menu>
+	<form id="Enquire_Flight">
+		<prompt bargein="false">
+			<break time="1s"/>
+
+
+              All flights are on time. Bon Voyage.
+
+
+
+                
+		</prompt>
+	</form>
+	<form id="flight_booking">
+		<grammar src="grammars/lab4.xml"/>
+		<initial name="initial_start">
+			<prompt>Tell me your travel plan?</prompt>
+			<nomatch count="1">
+
+          Please say something like "I want to travel from Paris to Amsterdam on the 10th of March"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+
+          I'll ask you for information one piece at a time.
+
+                                
+				<assign name="initial_start" expr="true"/>
+				<reprompt/>
+			</nomatch>
+		</initial>
+		<field name="fro">
+			<grammar src="grammars/lab4.xml#fro"/>
+			<prompt>Where are you leaving from?</prompt>
+			<nomatch count="1">
+
+          Please say something like "Paris or Amsterdam Newyork"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+
+           Please say something like "Paris or Amsterdam Newyork"!
+
+                        </nomatch>
+		</field>
+		<field name="to">
+			<grammar src="grammars/lab4.xml#to"/>
+			<prompt>Where are you going?</prompt>
+			<nomatch count="1">
+
+          Please say something like "Paris or Amsterdam Newyork"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+
+           Please say something like "Paris or Amsterdam Newyork"!
+
+                        </nomatch>
+		</field>
+		<field name="tday">
+			<grammar src="grammars/lab4.xml#tdm"/>
+			<prompt>What day are you leaving?</prompt>
+			<nomatch count="1">
+
+          Please say something like "on 10th, on 21st, on 15th"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+          Please say something like "on 10th, on 21st, on 15th"!
+
+                        </nomatch>
+		</field>
+		<field name="tmonth">
+			<grammar src="grammars/lab4.xml#tm"/>
+			<prompt>What month are you leaving?</prompt>
+			<nomatch count="1">
+
+          Please say something like "January, March,October"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+
+          Pleasese say something like "January, March,October"!
+                        </nomatch>
+		</field>
+		<field name="rday">
+			<grammar src="grammars/lab4.xml#rdm"/>
+			<prompt>What day are you returning?</prompt>
+			<nomatch count="1">
+
+          Please say something like "on 10th, on 21st, on 15th"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+          Please say something like "on 10th, on 21st, on 15th"!
+
+                        </nomatch>
+		</field>
+		<field name="rmonth">
+			<grammar src="grammars/lab4.xml#rm"/>
+			<prompt>What month are you returning?</prompt>
+			<nomatch count="1">
+
+          Please say something like "January, March,October"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+
+          Pleasese say something like "January, March,October"!
+                        </nomatch>
+		</field>
+		<field name="fkind">
+			<grammar src="grammars/lab4.xml#ftype"/>
+			<prompt>What Airlines you would like to travel?</prompt>
+			<nomatch count="1">
+
+          Please say something like "Jet Airways, Ryan AIr, Air India"!
+
+        </nomatch>
+			<nomatch count="2">
+
+          I'm sorry, i still don't understand.
+           Please say something like "Jet Airways, Ryan AIr, Air India"!
+
+                        </nomatch>
+		</field>
+		<filled>
+			<if cond="to == fro">
+
+        The departure and destination should not be same. Let's start over.
+
+
+                                
+				<goto next="#flight_booking"/>
+				<else/>
+				<prompt>
+
+      Your flight is booked from
+                                        
+					<value expr="fro"/> to
+                                        
+					<value expr="to"/>
+      on
+                                        
+					<value expr="tday"/>
+					<value expr="tmonth"/>
+      and return on
+                                        
+					<value expr="rday"/>
+					<value expr="rmonth"/> in
+                                        
+					<value expr="fkind"/>
+
+      Thanks, for using our service!
+
+
+                                
+				</prompt>
+			</if>
+		</filled>
+	</form>
+</vxml>
+

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<grammar version="1.0" tag-format="semantics/1.0" root="command">
+	<rule id="command">
+		<one-of>
+			<item>
+				<ruleref uri="#to"/>
+				<tag>out.to=rules.to.tocity;</tag>
+			</item>
+			<item>
+				<ruleref uri="#fro"/>
+				<tag>out.fro=rules.fro.fromcity;</tag>
+			</item>
+                        <item>
+                                 <ruleref uri="#fro"/>
+                                <ruleref uri="#ftype"/>
+                                <tag>out.fro=rules.fro.fromcity;out.fkind=rules.ftype.fkind</tag>
+                        </item>
+                        <item>
+                                <ruleref uri="#to"/>
+                                <ruleref uri="#ftype"/>
+                                <tag>out.to=rules.to.tocity;out.fkind=rules.ftype.fkind</tag>
+                        </item>
+
+                        <item>
+                                <ruleref uri="#to"/>
+                                 <ruleref uri="#fro"/>
+                                <tag>out.to=rules.to.tocity;out.fro=rules.fro.fromcity;</tag>
+                        </item>
+
+                        <item>
+                                <ruleref uri="#to"/>
+                                 <ruleref uri="#fro"/>
+                                <ruleref uri="#ftype"/>
+                                <tag>out.to=rules.to.tocity;out.fro=rules.fro.fromcity;out.fkind=rules.ftype.fkind</tag>
+                        </item>
+                        <item>
+                                <ruleref uri="#fro"/>
+                                <ruleref uri="#to"/>
+                                <tag>out.to=rules.to.tocity;out.fro=rules.fro.fromcity;</tag>
+                        </item>
+                        <item>
+                                <ruleref uri="#fro"/>
+                                 <ruleref uri="#to"/>
+                                <ruleref uri="#ftype"/>
+                                <tag>out.to=rules.to.tocity;out.fro=rules.fro.fromcity;out.fkind=rules.ftype.fkind</tag>
+                        </item>
+
+			<item>
+				<ruleref uri="#fro"/>
+				<ruleref uri="#tdm"/>
+				<ruleref uri="#tm"/>
+				<tag>out.fro=rules.fro.fromcity;out.tday=rules.tdm.tday;out.tmonth=rules.tm.tmonth</tag>
+			</item>
+			<item>
+				<ruleref uri="#to"/>
+				<ruleref uri="#tdm"/>
+				<ruleref uri="#tm"/>
+				<tag>out.to=rules.to.tocity;out.tday=rules.tdm.tday;out.tmonth=rules.tm.tmonth</tag>
+			</item>
+			<item>
+				<ruleref uri="#to"/>
+				<ruleref uri="#fro"/>
+				<ruleref uri="#tdm"/>
+				<ruleref uri="#tm"/>
+				<tag>out.to=rules.to.tocity;out.tday=rules.tdm.tday;out.tmonth=rules.tm.tmonth;out.fro=rules.fro.fromcity;</tag>
+			</item>
+			<item>
+				<ruleref uri="#fro"/>
+				<ruleref uri="#to"/>
+				<ruleref uri="#tdm"/>
+				<ruleref uri="#tm"/>
+				<tag>out.to=rules.to.tocity;out.tday=rules.tdm.tday;out.tmonth=rules.tm.tmonth;out.fro=rules.fro.fromcity;</tag>
+			</item>
+			<item>
+				<ruleref uri="#tdm"/>
+				<ruleref uri="#tm"/>
+				<tag>out.tday=rules.tdm.tday;out.tmonth=rules.tm.tmonth;</tag>
+			</item>
+			<item>
+				<ruleref uri="#rdm"/>
+				<ruleref uri="#rm"/>
+				<tag>out.rday=rules.rdm.rday;out.rmonth=rules.rm.rmonth;</tag>
+			</item>
+			<item>
+				<ruleref uri="#to"/>
+				<tag>out.to=rules.to.tocity;</tag>
+			</item>
+			<item>
+				<ruleref uri="#fro"/>
+				<tag>out.fro=rules.fro.fromcity;</tag>
+			</item>
+			<item>
+				<ruleref uri="#tdm"/>
+				<tag>out.tday=rules.tdm.tday;</tag>
+			</item>
+			<item>
+				<ruleref uri="#tm"/>
+				<tag>out.tmonth=rules.tm.tmonth;</tag>
+			</item>
+			<item>
+				<ruleref uri="#rdm"/>
+				<tag>out.rday=rules.rdm.rday;</tag>
+			</item>
+			<item>
+				<ruleref uri="#rm"/>
+				<tag>out.rmonth=rules.rm.rmonth;</tag>
+			</item>
+                         <item>
+                                <ruleref uri="#ftype"/>
+                                <tag>out.fkind=rules.ftype.fkind</tag>
+
+                        </item>
+		</one-of>
+	</rule>
+	<rule id="fro" scope="public">
+
+              <one-of>
+		<item repeat="0-1">from</item>
+                <item repeat="0-1">i want to depart from</item>
+                <item repeat="0-1">i want to go from</item>
+              </one-of>
+		<item>
+			<ruleref uri="#city"/>
+			<tag>out.fro=rules.city.city</tag>
+		</item>
+	</rule>
+	<rule id="to" scope="public">
+              <one-of>
+		<item repeat="0-1">to</item>
+		<item repeat="0-1">go to</item>
+                <item repeat="0-1">i want to go to</item>
+              </one-of>
+		<item>
+			<ruleref uri="#city"/>
+			<tag>out.to=rules.city.city</tag>
+		</item>
+	</rule>
+	<rule id="city" scope="public">
+		<one-of>
+			<item>London
+				<tag>out.city="London"</tag>
+			</item>
+			<item>Berlin
+				<tag>out.city="Berlin"</tag>
+			</item>
+			<item>Amsterdam
+				<tag>out.city="Amsterdam"</tag>
+			</item>
+			<item>Paris
+				<tag>out.city="Paris"</tag>
+			</item>
+			<item>New York
+				<tag>out.city="New York"</tag>
+			</item>
+		</one-of>
+	</rule>
+
+        <rule id="ftype" scope="public">
+                <one-of>
+                <item repeat="0-1">in</item>
+                <item repeat="0-1">go in</item>
+                <item repeat="0-1">want a</item>
+                 <item repeat="0-1">travel by</item>
+                 <item repeat="0-1">travel in</item>
+                </one-of>
+                <one-of>
+                        <item>Boeing
+                                <tag>out.fkind="Boeing"</tag>
+                        </item>
+                        <item>Emirates
+                                <tag>out.fkind="Emirates"</tag>
+                        </item>
+                        <item>Ryan Air
+                                <tag>out.fkind="Ryan Air"</tag>
+                        </item>
+                        <item>SAS
+                                <tag>out.fkind="SAS"</tag>
+                        </item>
+                        <item>Air India
+                                <tag>out.fkind="Air India"</tag>
+                        </item>
+                        <item>Jet AIrways
+                                <tag>out.fkind="Jet Airways"</tag>
+                        </item>
+                </one-of>
+        </rule>
+	<rule id="tdm" scope="public">
+                <one-of>
+		<item repeat="0-1">on</item>
+                <item repeat="0-1">start on</item>
+                <item repeat="0-1">on the</item>
+                 <item repeat="0-1">and go on</item>
+                 <item repeat="0-1">and on</item>
+                </one-of>
+		<one-of>
+			<item>1st
+				<tag>out.tday="1st"</tag>
+			</item>
+			<item>2nd
+				<tag>out.tday="2nd"</tag>
+			</item>
+			<item>3rd
+				<tag>out.tday="3rd"</tag>
+			</item>
+			<item>4th
+				<tag>out.tday="4th"</tag>
+			</item>
+			<item>5th
+				<tag>out.tday="5th"</tag>
+			</item>
+			<item>6th
+				<tag>out.tday="6th"</tag>
+			</item>
+			<item>7th
+				<tag>out.tday="7th"</tag>
+			</item>
+			<item>8th
+				<tag>out.tday="8th"</tag>
+			</item>
+			<item>9th
+				<tag>out.tday="9th"</tag>
+			</item>
+			<item>10th
+				<tag>out.tday="10th"</tag>
+			</item>
+			<item>11th
+				<tag>out.tday="11th"</tag>
+			</item>
+			<item>12th
+				<tag>out.tday="12th"</tag>
+			</item>
+			<item>13th
+				<tag>out.tday="13th"</tag>
+			</item>
+			<item>14th
+				<tag>out.tday="14th"</tag>
+			</item>
+			<item>15th
+				<tag>out.tday="15th"</tag>
+			</item>
+			<item>16th
+				<tag>out.tday="16th"</tag>
+			</item>
+			<item>17th
+				<tag>out.tday="17th"</tag>
+			</item>
+			<item>18th
+				<tag>out.tday="18th"</tag>
+			</item>
+			<item>19th
+				<tag>out.tday="19th"</tag>
+			</item>
+			<item>20th
+				<tag>out.tday="20th"</tag>
+			</item>
+			<item>21st
+				<tag>out.tday="21st"</tag>
+			</item>
+			<item>22nd
+				<tag>out.tday="22nd"</tag>
+			</item>
+			<item>23rd
+				<tag>out.tday="23rd"</tag>
+			</item>
+			<item>24th
+				<tag>out.tday="24th"</tag>
+			</item>
+			<item>25th
+				<tag>out.tday="25th"</tag>
+			</item>
+			<item>26th
+				<tag>out.tday="26th"</tag>
+			</item>
+			<item>27th
+				<tag>out.tday="27th"</tag>
+			</item>
+			<item>28th
+				<tag>out.tday="28th"</tag>
+			</item>
+			<item>29th
+				<tag>out.tday="29th"</tag>
+			</item>
+			<item>30th
+				<tag>out.tday="30th"</tag>
+			</item>
+			<item>31st
+				<tag>out.tday="31st"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="tm" scope="public">
+		<one-of>
+			<item>January
+				<tag>out.tmonth="January"</tag>
+			</item>
+			<item>February
+				<tag>out.tmonth="February"</tag>
+			</item>
+			<item>March
+				<tag>out.tmonth="march"</tag>
+			</item>
+			<item>april
+				<tag>out.tmonth="april"</tag>
+			</item>
+			<item>may
+				<tag>out.tmonth="may"</tag>
+			</item>
+			<item>june
+				<tag>out.tmonth="june"</tag>
+			</item>
+			<item>July
+				<tag>out.tmonth="July"</tag>
+			</item>
+			<item>august
+				<tag>out.tmonth="august"</tag>
+			</item>
+			<item>september
+				<tag>out.tmonth="september"</tag>
+			</item>
+			<item>october
+				<tag>out.tmonth="october"</tag>
+			</item>
+			<item>November
+				<tag>out.tmonth="November"</tag>
+			</item>
+			<item>December
+				<tag>out.tmonth="December"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="rdm" scope="public">
+		<one-of>
+                <item repeat="0-1">on</item>
+                <item repeat="0-1">return on</item>
+                <item repeat="0-1">on the</item>
+                 <item repeat="0-1">and return on</item>
+                 <item repeat="0-1">and on</item>
+                </one-of>
+		<one-of>
+			<item>1st
+				<tag>out.rday="1st"</tag>
+			</item>
+			<item>2nd
+				<tag>out.rday="2nd"</tag>
+			</item>
+			<item>3rd
+				<tag>out.rday="3rd"</tag>
+			</item>
+			<item>4th
+				<tag>out.rday="4th"</tag>
+			</item>
+			<item>5th
+				<tag>out.rday="5th"</tag>
+			</item>
+			<item>6th
+				<tag>out.rday="6th"</tag>
+			</item>
+			<item>7th
+				<tag>out.rday="7th"</tag>
+			</item>
+			<item>8th
+				<tag>out.rday="8th"</tag>
+			</item>
+			<item>9th
+				<tag>out.rday="9th"</tag>
+			</item>
+			<item>10th
+				<tag>out.rday="10th"</tag>
+			</item>
+			<item>11th
+				<tag>out.rday="11th"</tag>
+			</item>
+			<item>12th
+				<tag>out.rday="12th"</tag>
+			</item>
+			<item>13th
+				<tag>out.rday="13th"</tag>
+			</item>
+			<item>14th
+				<tag>out.rday="14th"</tag>
+			</item>
+			<item>15th
+				<tag>out.rday="15th"</tag>
+			</item>
+			<item>16th
+				<tag>out.rday="16th"</tag>
+			</item>
+			<item>17th
+				<tag>out.rday="17th"</tag>
+			</item>
+			<item>18th
+				<tag>out.rday="18th"</tag>
+			</item>
+			<item>19th
+				<tag>out.rday="19th"</tag>
+			</item>
+			<item>20th
+				<tag>out.rday="20th"</tag>
+			</item>
+			<item>21st
+				<tag>out.rday="21st"</tag>
+			</item>
+			<item>22nd
+				<tag>out.rday="22nd"</tag>
+			</item>
+			<item>23rd
+				<tag>out.rday="23rd"</tag>
+			</item>
+			<item>24th
+				<tag>out.rday="24th"</tag>
+			</item>
+			<item>25th
+				<tag>out.rday="25th"</tag>
+			</item>
+			<item>26th
+				<tag>out.rday="26th"</tag>
+			</item>
+			<item>27th
+				<tag>out.rday="27th"</tag>
+			</item>
+			<item>28th
+				<tag>out.rday="28th"</tag>
+			</item>
+			<item>29th
+				<tag>out.rday="29th"</tag>
+			</item>
+			<item>30th
+				<tag>out.rday="30th"</tag>
+			</item>
+			<item>31st
+				<tag>out.rday="31st"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="rm" scope="public">
+		<one-of>
+			<item>January
+				<tag>out.rmonth="January"</tag>
+			</item>
+			<item>February
+				<tag>out.rmonth="February"</tag>
+			</item>
+			<item>March
+				<tag>out.rmonth="march"</tag>
+			</item>
+			<item>april
+				<tag>out.rmonth="april"</tag>
+			</item>
+			<item>may
+				<tag>out.rmonth="may"</tag>
+			</item>
+			<item>june
+				<tag>out.rmonth="june"</tag>
+			</item>
+			<item>July
+				<tag>out.rmonth="July"</tag>
+			</item>
+			<item>august
+				<tag>out.rmonth="august"</tag>
+			</item>
+			<item>september
+				<tag>out.rmonth="september"</tag>
+			</item>
+			<item>october
+				<tag>out.rmonth="october"</tag>
+			</item>
+			<item>November
+				<tag>out.rmonth="November"</tag>
+			</item>
+			<item>December
+				<tag>out.rmonth="December"</tag>
+			</item>
+		</one-of>
+	</rule>
+</grammar>
+
