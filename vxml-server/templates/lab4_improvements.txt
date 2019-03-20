@@ -1,0 +1,9 @@
+The following are the improvements:
+
+1. There are no open ended prompts. User can freely talk and the system can understand mostly.
+2. There is no alignment on which you need to say. You can just say only from city or to city or date on which you travel.
+   But the system rigjhtly asks for the necesseray details you miss to say.
+3. Additional prompts to let the user know what is expected from him in case he did not respond properly.
+4. No input is taken twice. 
+5. The reservation is not complete until all the details are gathered.
+6. Additional checks to see if to and from city are similar and re prompting if they are same.
