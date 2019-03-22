@@ -55,6 +55,27 @@ def lab4():
     response.headers["Content-Type"] = "application/xml"
     return response
 
+@app.route('/game')
+def game():
+    vxml = render_template('game.xml')
+    response = make_response(vxml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+@app.route('/Number_Guess')
+def GuessNumber():
+    vxml = render_template('Number_Guess.xml')
+    response = make_response(vxml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+@app.route('/Hangman')
+def Hangman():
+    vxml = render_template('Hangman.xml')
+    response = make_response(vxml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
 @app.route('/grammars/<path:path>')
 def send_grammar(path):
     return send_from_directory('grammars', path)

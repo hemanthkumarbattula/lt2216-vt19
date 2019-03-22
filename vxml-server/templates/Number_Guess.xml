@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+
+<vxml version="2.1" >
+    <link event="event_startover">
+       <grammar mode="voice"
+
+         root="root_rule"
+
+         xml:lang="en-US">
+
+       <rule id="root_rule" scope="public">
+
+        <one-of>
+
+            <item>
+
+               start
+
+               over
+
+            </item>
+
+	</one-of>
+
+       </rule>
+
+   </grammar>
+
+   </link>
+
+   <catch event="event_startover">
+
+      <goto next="game"/>
+
+   </catch>
+
+    <var name="debug"           expr="false" />
+    <var name="useDoubleDigit"  expr="true" />
+    <var name="num" />
+    <var name="state" />
+    <var name="guessCount" />
+
+
+        <noinput>
+                I am sorry I did not hear anything.
+                <reprompt/>
+        </noinput>
+
+        <nomatch>
+                I am sorry, I did not understand you.
+                <reprompt/>
+        </nomatch>
+
+        <help>
+                No help available yet
+        <reprompt/>
+        </help>
+        <script>
+          <![CDATA[
+            function GetAdIndex(max)
+            {
+             return (Math.round(Math.random()*max))%max ;
+            }
+          ]]>
+       </script>
+
+	<form id="Intro">
+		<block>
+			<prompt>
+                <break/>
+				Welcome to the Number  guessing game.
+				<break/>
+			</prompt>
+            <goto expr="'#Start'"/>
+		</block>
+    </form>
+
+    <form id="Start">
+
+        <block>
+          <if cond="useDoubleDigit == false" >
+             <assign name="num" expr="GetAdIndex(10)"/>
+          <else/>
+             <assign name="num" expr="GetAdIndex(100)"/>
+          </if>
+            
+          <assign name="guessCount" expr="0" />
+          
+          <log> DEBUG:  The number to guess is <value expr="num"/></log>
+  
+          <prompt cond="debug">
+            debug: the number is <value expr="num"/>.
+            <break size="large"/>
+          </prompt>
+  
+        </block>
+
+		<field name="guess" type='number'>
+			<prompt cond="useDoubleDigit == false">
+				please select a number between "Zero" and "Nine".
+			</prompt>
+
+            <prompt cond="useDoubleDigit == true">
+              please select a number between "Zero" and "Ninety Nine".
+            </prompt>
+      
+			
+			<filled>
+				<assign name="state" expr="guess - num"/>
+				<assign name="guessCount" expr="guessCount + 1"/>
+				
+				<if cond="state &gt; 0">
+					<prompt>
+						<value expr="guess"/> is too high.
+						<break/>						
+					</prompt>
+					<clear namelist="guess"/>
+				<elseif cond="state &lt; 0"/>
+					<prompt>
+						<value expr="guess"/> is too low.
+						<break/>
+					</prompt>
+					<clear namelist="guess"/>
+				<else/>
+					<goto expr="'#TryAgain'"/>
+				</if>
+			</filled>
+		</field>
+		
+	</form>
+  
+    <form id="TryAgain">
+
+      <field name="doAgain">
+
+        <prompt>
+          Congratulations. You have correctly guessed the number <value expr="num"/>,
+          in <value expr="guessCount"/> <value expr="guessCount==1?'guess':'guesses'"/>.
+          <break/>
+          Would you like to play again?
+        </prompt>
+        <option> yes </option>
+        <option> no </option>
+        <filled>
+          <if cond="doAgain == 'yes'">
+            <prompt>
+              OK:  I'm ready to play again.
+            </prompt>
+            <goto expr="'#Start'"/>
+          <else/>
+            <goto expr="'#TheEnd'"/>
+          </if>
+        </filled>
+
+      </field>
+
+    </form>
+	
+	<form id="TheEnd">
+		<block>
+			<prompt>
+				Thank you for playing the "Number Guessing Game".  Hope to see you again. Bye for now!
+			</prompt>
+		</block>
+	</form>
+
+</vxml>
+

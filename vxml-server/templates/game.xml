@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<vxml version="2.1" >
+
+
+
+   <link event="event_startover">
+
+   
+
+   <grammar mode="voice"
+
+         root="root_rule"
+
+         xml:lang="en-US">
+
+   
+
+   <rule id="root_rule" scope="public">
+
+
+
+         <one-of>
+
+
+
+            <item>
+
+               start
+
+               over
+
+            </item>
+
+
+
+         </one-of>
+
+
+
+      </rule>
+
+
+
+   </grammar>
+
+
+
+   </link>
+
+
+
+   <catch event="event_startover">
+
+
+
+      <goto next="#mainMenu"/>
+
+
+
+   </catch>
+
+
+
+  <menu id="mainMenu">
+
+
+
+    <prompt bargein="false">
+
+
+
+      <break time="1s"/>
+
+
+
+      Welcome to Voice Gaming Online. choose one of the options below <enumerate/>
+
+
+
+    </prompt>
+
+
+
+    <choice next="Hangman">
+
+
+
+      <break time="1s"/>
+
+
+
+      Guess a word 
+
+
+
+    </choice>
+
+
+
+    <choice next="Number_Guess">
+
+
+
+     <break time="1s"/>
+
+
+
+       Guess a Number
+
+
+
+    </choice>
+
+
+
+  </menu>
+
+
+
+  <nomatch count="1">
+
+
+
+        Sorry, the option dóes not match. Please hear the menu again.
+
+
+
+      <goto next="#mainMenu"/>
+
+  </nomatch>
+
+
+
+    <nomatch count="2">
+
+      I'm sorry. I still didn't get that.
+
+      <reprompt />
+
+    </nomatch>
+
+
+
+    <nomatch count="3">
+
+      I'm sorry. I'm having trouble understanding. I have to exit the next time.
+
+      <reprompt />
+
+    </nomatch>
+
+
+
+    <nomatch count="4">
+
+      <exit />
+
+    </nomatch>
+
+
+
+    <noinput>
+
+         I'm sorry. I didn't hear you.
+
+         <reprompt/>
+
+   </noinput> 
+
+
+
+
+
+</vxml>

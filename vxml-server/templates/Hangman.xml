@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<vxml version="2.1" >
+      <link event="event_startover">
+       <grammar mode="voice"
+
+         root="root_rule"
+
+         xml:lang="en-US">
+
+       <rule id="root_rule" scope="public">
+
+        <one-of>
+
+            <item>
+
+               start
+
+               over
+
+            </item>
+
+        </one-of>
+
+       </rule>
+
+   </grammar>
+
+   </link>
+
+   <catch event="event_startover">
+
+      <goto next="game"/>
+
+   </catch>
+        
+	<var name="actual_word" />
+	<var name="guess_word" />
+	<var name="temp"/>
+	<var name="guessCount" />
+	<var name="debug" />
+        <var name="t" />
+	<noinput>
+                I am sorry I did not hear anything.
+                
+		<reprompt/>
+	</noinput>
+	<nomatch>
+                I am sorry, I did not understand you.
+                
+		<reprompt/>
+	</nomatch>
+	<help>
+                No help available yet
+        
+		<reprompt/>
+	</help>
+	<script>
+		<![CDATA[
+            function get_word()
+            {
+             var words = [
+                  "heman",
+                  "zebra",
+                  "monkey",
+                  "tiger",
+                  "user",
+                  "life",
+                  "death",
+                  "superman",
+                  "ironman",
+                  "batman",
+                  "lion",
+                  "king",
+                  "cat",
+                 "dog",
+                 "ant",
+                 "apple",
+                 "mango",
+                 "love",
+                 "hate",
+                 "hello",
+                 "dialouge",
+                 "exam",
+                 "seminar",
+                 "idiot",
+
+                 ];
+             var word = words[Math.floor(Math.random() * words.length)];
+             return word
+            }
+          function bringhypen(l){
+                var aa = [];
+                for( var i = 0;i < l;i++ ){
+                           aa[i] = "-";
+
+                        }
+               return aa.join('');
+          }
+          function is_present(g,word){
+                   if(word.indexOf(g) > -1){
+                      return 'yes'
+                   }
+                   else{
+                      return 'no'
+                  }
+          }             
+          function guessWord(var2, var1, guess, answerArray) {
+                        var answerArray = answerArray.split('');
+                        for( var i = 0;i < var1;i++ ){
+                            if(var2.charAt(i) == guess){
+                                    answerArray[i] = guess;
+                           }
+
+                        }
+                        
+              return answerArray.join('');
+        }
+
+
+          ]]>
+	</script>
+	<form id="Intro">
+		<block>
+			<prompt>
+				<break/>
+                                Welcome to the Hangman game.
+                                
+				<break/>
+			</prompt>
+			<goto expr="'#Start'"/>
+		</block>
+	</form>
+	<form id="Start">
+		<block>
+			<assign name="actual_word" expr="get_word()"/>
+			<assign name="guessCount" expr="0" />
+			<assign name='hypen' expr="bringhypen(actual_word.length)"/>
+                        <prompt> The word to guess is of length <value expr="actual_word.length"/>.
+                         Let's start the game. <break size="large"/></prompt>
+			<log> DEBUG:  The word to guess is 
+				<value expr="actual_word"/>
+			</log>
+			<prompt cond="debug">
+            debug: the word is 
+				<value expr="actual_word"/>.
+            
+				<break size="large"/>
+			</prompt>
+			<goto expr="'#Gues'"/>
+		</block>
+	</form>
+	<form id="Gues">
+		<field name="gues">
+			<prompt> please tell an alphabet </prompt>
+                         <break time="3s"/>
+
+                      <option>a</option>
+                      <option>b</option>
+                      <option>c</option>
+                      <option>d</option>
+                      <option>e</option>
+                      <option>f</option>
+                      <option>g</option>
+                      <option>h</option>
+                      <option>i</option>
+                      <option>j</option>
+                      <option>k</option>
+                      <option>l</option>
+                      <option>m</option>
+                      <option>n</option>
+                      <option>o</option>
+                      <option>p</option>
+                      <option>q</option>
+                      <option>r</option>
+                      <option>s</option>
+                      <option>t</option>
+                      <option>u</option>
+                      <option>v</option>
+                      <option>w</option>
+                      <option>x</option>
+                      <option>y</option>
+                      <option>z</option>
+                  
+		</field>
+                
+		<filled>
+			<assign name="guess" expr="gues" />
+                        <if cond="guess.length != 1">
+                            <prompt> only one character allowed. select again </prompt>
+                            <clear namelist="guess"/>
+                            <goto next="#Gues"/>
+                        <else/>
+			<goto next="#evalua"/>
+                        </if>
+		</filled>
+	</form>
+	<form id='evalua'>
+		<block>
+			
+			<assign name="guessCount" expr="guessCount + 1"/>
+			<assign name="remain_guesses" expr="10-guessCount"/>
+			<if cond="remain_guesses != 0">
+                                <assign name="t" expr="is_present(guess,actual_word)"/>
+				<if cond="t== 'yes'">
+                                        <assign name="temp" expr="guessWord(actual_word, actual_word.length, guess, hypen)"/>
+                                        <assign name="hypen" expr="temp"/>
+					<if cond="hypen != actual_word">
+						<prompt>
+                          			The guess is correct  the word guessed until now is <break time="1s"/> <say-as interpret-as="characters" format="characters">                                                        <value expr="hypen"/></say-as> 
+                                                       <break time="2s"/>
+
+						</prompt>
+						<clear namelist="guess"/>
+						<goto next="#Gues"/>
+						<else/>
+
+                                                <prompt>The guess is correct and you completed the word <break time="1s"/> <say-as interpret-as="characters" format="characters"> 
+         						<value expr="hypen"/></say-as> <value expr="hypen"/>
+                                                       <break time="2s"/>
+       						</prompt>
+						<goto expr="'#TryAgain'"/>
+					</if>
+					<else/>
+					<prompt>
+                                The guess is not correct the word  guessed  until now is <break time="1s"/> <say-as interpret-as="characters" format="characters"> 
+                                                        <value expr="hypen"/></say-as>
+                                                       <break time="2s"/>
+					</prompt>
+                                        <clear namelist="guess"/>
+					<goto next="#Gues"/>
+				</if>
+				<else/>
+				<prompt>
+                     sorry you lost. <break/>
+                     The guesses are completed. The man was hanged. <break/> The actual word was  <value expr="actual_word"/>
+                       
+					<break/>
+				</prompt>
+                         <goto expr="'#TryAgain'"/>
+			</if>
+		</block>
+	</form>
+
+        <form id="TryAgain">
+
+      <field name="doAgain">
+
+        <prompt>
+          <break/>
+          Would you like to play again?
+        </prompt>
+        <option> yes </option>
+        <option> no </option>
+        <filled>
+          <if cond="doAgain == 'yes'">
+            <prompt>
+              OK:  I'm ready to play again.
+            </prompt>
+            <goto expr="'#Start'"/>
+          <else/>
+            <goto expr="'#TheEnd'"/>
+          </if>
+        </filled>
+
+      </field>
+
+    </form>
+
+        <form id="TheEnd">
+                <block>
+                        <prompt>
+                                Thank you for playing the "Number Guessing Game".  Hope to see you again. Bye for now!
+                        </prompt>
+                </block>
+        </form>
+</vxml>
+
